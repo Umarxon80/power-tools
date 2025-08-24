@@ -1,62 +1,62 @@
 import  db  from "../config/db.config.js";
 
 
-export const Getdistrict=(req,res)=>{
-    db.query(`SELECT * FROM district`,(error,results)=>{
+export const Getorder=(req,res)=>{
+    db.query("SELECT * FROM `order`",(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Error getting district");
+            console.log("Error getting order");
             return res.status(500).json({
-                message:"Error getting district",
+                message:"Error getting order",
                 error:"Internal Server Error"
             }) 
         }
         res.status(200).json({
             statusCode:200,
             data:results,
-            message:"districts are recived successfully",
+            message:"orders are recived successfully",
         })
     })
 };
 
-export const GetOnedistrict=(req,res)=>{
+export const GetOneorder=(req,res)=>{
     let {id}=req.params
-    db.query(`SELECT * FROM district where id=(?)`,[id],(error,results)=>{
+    db.query("SELECT * FROM `order` where id=(?)",[id],(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Error getting district");
+            console.log("Error getting order");
             return res.status(500).json({
-                message:"Error getting district",
+                message:"Error getting order",
                 error:"Internal Server Error"
             }) 
         }
         if (!results.length) {
-            return res.status(400).send("district with such id doesn't exists")
+            return res.status(400).send("order with such id doesn't exists")
         }
         res.status(200).json({
             statusCode:200,
             data:results[0],
-            message:"districts are recived successfully",
+            message:"orders are recived successfully",
         })
     })
 
 
 };
 
-export const createdistrict=(req,res)=>{
-    let {name}=req.body
-    db.query(`INSERT INTO district (name) VALUES (?)`,[name],(error,results)=>{
+export const createorder=(req,res)=>{
+    let {client_id,shop_tool_id,order_date,period,total_price}=req.body
+    db.query("INSERT INTO `order` (client_id,shop_tool_id,order_date,period,total_price) VALUES (?,?,?,?,?)",[client_id,shop_tool_id,order_date,period,total_price],(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Error adding new district");
+            console.log("Error adding new order");
             return res.status(500).json({
-                message:"Error adding new district",
+                message:"Error adding new order",
                 error:"Internal Server Error"
             }) 
         }
         console.log(results);
         res.status(201).json({
-            message:"New district is added",
+            message:"New order is added",
             id:results.insertId
         })
     })
@@ -67,42 +67,42 @@ export const createdistrict=(req,res)=>{
 
 
 
-export const Patchdistrict=(req,res)=>{
+export const Patchorder=(req,res)=>{
     let {id}=req.params
-    let {name}=req.body
-    db.query(`UPDATE district SET name=(?) where id=(?)`,[name,id],(error,results)=>{
+    let {client_id,shop_tool_id,order_date,period,total_price}=req.body
+    db.query("UPDATE `order` SET client_id=(?),shop_tool_id=(?),order_date=(?),period=(?),total_price=(?) where id=(?)",[client_id,shop_tool_id,order_date,period,total_price,id],(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Error updating district");
+            console.log("Error updating order");
             return res.status(500).json({
-                message:"Error updating district",
+                message:"Error updating order",
                 error:"Internal Server Error"
             }) 
         }
         res.status(201).json({
             message:results,
             id:id,
-            message:"district is updated successfully",
+            message:"order is updated successfully",
         })
     })
 };
 
 
-export const Deldistrict=(req,res)=>{
+export const Delorder=(req,res)=>{
     let {id}=req.params
-    db.query(`DELETE FROM district WHERE id=(?)`,[id],(error,results)=>{
+    db.query("DELETE FROM `order` WHERE id=(?)",[id],(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Error deleting district");
+            console.log("Error deleting order");
             return res.status(500).json({
-                message:"Error deleting district",
+                message:"Error deleting order",
                 error:"Internal Server Error",
             }) 
         }
         res.status(201).json({
             message:results,
             id:results.insertId,
-            message:"district is deleted successfully",
+            message:"order is deleted successfully",
         })
     })
 };

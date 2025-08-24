@@ -65,8 +65,6 @@ export const createshop=(req,res)=>{
 
 
 
-
-
 export const Patchshop=(req,res)=>{
     let {id}=req.params
     let {name,ownerId,phone_number,district_id,address,location}=req.body

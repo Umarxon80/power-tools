@@ -1,62 +1,62 @@
 import  db  from "../config/db.config.js";
 
 
-export const Getdistrict=(req,res)=>{
-    db.query(`SELECT * FROM district`,(error,results)=>{
+export const Getshop_tool=(req,res)=>{
+    db.query(`SELECT * FROM shop_tool`,(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Error getting district");
+            console.log("Error getting shop_tool");
             return res.status(500).json({
-                message:"Error getting district",
+                message:"Error getting shop_tool",
                 error:"Internal Server Error"
             }) 
         }
         res.status(200).json({
             statusCode:200,
             data:results,
-            message:"districts are recived successfully",
+            message:"shop_tools are recived successfully",
         })
     })
 };
 
-export const GetOnedistrict=(req,res)=>{
+export const GetOneshop_tool=(req,res)=>{
     let {id}=req.params
-    db.query(`SELECT * FROM district where id=(?)`,[id],(error,results)=>{
+    db.query(`SELECT * FROM shop_tool where id=(?)`,[id],(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Error getting district");
+            console.log("Error getting shop_tool");
             return res.status(500).json({
-                message:"Error getting district",
+                message:"Error getting shop_tool",
                 error:"Internal Server Error"
             }) 
         }
         if (!results.length) {
-            return res.status(400).send("district with such id doesn't exists")
+            return res.status(400).send("shop_tool with such id doesn't exists")
         }
         res.status(200).json({
             statusCode:200,
             data:results[0],
-            message:"districts are recived successfully",
+            message:"shop_tools are recived successfully",
         })
     })
 
 
 };
 
-export const createdistrict=(req,res)=>{
-    let {name}=req.body
-    db.query(`INSERT INTO district (name) VALUES (?)`,[name],(error,results)=>{
+export const createshop_tool=(req,res)=>{
+    let {shop_id,tool_id,rent_price}=req.body
+    db.query(`INSERT INTO shop_tool (shop_id,tool_id,rent_price) VALUES (?,?,?)`,[shop_id,tool_id,rent_price],(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Error adding new district");
+            console.log("Error adding new shop_tool");
             return res.status(500).json({
-                message:"Error adding new district",
+                message:"Error adding new shop_tool",
                 error:"Internal Server Error"
             }) 
         }
         console.log(results);
         res.status(201).json({
-            message:"New district is added",
+            message:"New shop_tool is added",
             id:results.insertId
         })
     })
@@ -64,45 +64,42 @@ export const createdistrict=(req,res)=>{
 
 
 
-
-
-
-export const Patchdistrict=(req,res)=>{
+export const Patchshop_tool=(req,res)=>{
     let {id}=req.params
-    let {name}=req.body
-    db.query(`UPDATE district SET name=(?) where id=(?)`,[name,id],(error,results)=>{
+    let {shop_id,tool_id,rent_price}=req.body
+    db.query(`UPDATE shop_tool SET shop_id=(?),tool_id=(?),rent_price=(?) where id=(?)`,[shop_id,tool_id,rent_price,id],(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Error updating district");
+            console.log("Error updating shop_tool");
             return res.status(500).json({
-                message:"Error updating district",
+                message:"Error updating shop_tool",
                 error:"Internal Server Error"
             }) 
         }
         res.status(201).json({
             message:results,
             id:id,
-            message:"district is updated successfully",
+            message:"shop_tool is updated successfully",
         })
     })
 };
 
 
-export const Deldistrict=(req,res)=>{
+export const Delshop_tool=(req,res)=>{
     let {id}=req.params
-    db.query(`DELETE FROM district WHERE id=(?)`,[id],(error,results)=>{
+    db.query(`DELETE FROM shop_tool WHERE id=(?)`,[id],(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Error deleting district");
+            console.log("Error deleting shop_tool");
             return res.status(500).json({
-                message:"Error deleting district",
+                message:"Error deleting shop_tool",
                 error:"Internal Server Error",
             }) 
         }
         res.status(201).json({
             message:results,
             id:results.insertId,
-            message:"district is deleted successfully",
+            message:"shop_tool is deleted successfully",
         })
     })
 };
