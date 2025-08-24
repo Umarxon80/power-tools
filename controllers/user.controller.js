@@ -1,62 +1,62 @@
 import  db  from "../config/db.config.js";
-
-
-export const Getdistrict=(req,res)=>{
-    db.query(`SELECT * FROM district`,(error,results)=>{
+import bcrypt  from "bcrypt";
+export const Getuser=(req,res)=>{
+    db.query(`SELECT * FROM user`,(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Error getting district");
+            console.log("Error getting user");
             return res.status(500).json({
-                message:"Error getting district",
+                message:"Error getting user",
                 error:"Internal Server Error"
             }) 
         }
         res.status(200).json({
             statusCode:200,
             data:results,
-            message:"districts are recived successfully",
+            message:"users are recived successfully",
         })
     })
 };
 
-export const GetOnedistrict=(req,res)=>{
+export const GetOneuser=(req,res)=>{
     let {id}=req.params
-    db.query(`SELECT * FROM district where id=(?)`,[id],(error,results)=>{
+    db.query(`SELECT * FROM user where id=(?)`,[id],(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Error getting district");
+            console.log("Error getting user");
             return res.status(500).json({
-                message:"Error getting district",
+                message:"Error getting user",
                 error:"Internal Server Error"
             }) 
         }
         if (!results.length) {
-            return res.status(400).send("district with such id doesn't exists")
+            return res.status(400).send("user with such id doesn't exists")
         }
         res.status(200).json({
             statusCode:200,
             data:results[0],
-            message:"districts are recived successfully",
+            message:"users are recived successfully",
         })
     })
 
 
 };
 
-export const createdistrict=(req,res)=>{
-    let {name}=req.body
-    db.query(`INSERT INTO district (name) VALUES (?)`,[name],(error,results)=>{
+export const createuser=(req,res)=>{
+    let {name,email,password,phone_number,is_active,role,address}=req.body
+    const hash = bcrypt.hashSync(password, 10);
+    db.query(`INSERT INTO user (name,email,password,phone_number,is_active,role,address) VALUES (?,?,?,?,?,?,?)`,[name,email,hash,phone_number,is_active,role,address],(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Error adding new district");
+            console.log("Error adding new user");
             return res.status(500).json({
-                message:"Error adding new district",
+                message:"Error adding new user",
                 error:"Internal Server Error"
             }) 
         }
         console.log(results);
         res.status(201).json({
-            message:"New district is added",
+            message:"New user is added",
             id:results.insertId
         })
     })
@@ -67,42 +67,50 @@ export const createdistrict=(req,res)=>{
 
 
 
-export const Patchdistrict=(req,res)=>{
+export const Patchuser=(req,res)=>{
     let {id}=req.params
-    let {name}=req.body
-    db.query(`UPDATE district SET name=(?) where id=(?)`,[name,id],(error,results)=>{
+    let {name,email,password,phone_number,is_active,role,address}=req.body
+    const hash = bcrypt.hashSync(password, 10);
+    db.query(`UPDATE user SET name=(?),email=(?),password=(?),phone_number=(?),is_active=(?),role=(?),address=(?) where id=(?)`,[name,email,hash,phone_number,is_active,role,address,id],(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Error updating district");
+            console.log("Error updating user");
             return res.status(500).json({
-                message:"Error updating district",
+                message:"Error updating user",
                 error:"Internal Server Error"
             }) 
         }
         res.status(201).json({
             message:results,
             id:id,
-            message:"district is updated successfully",
+            message:"user is updated successfully",
         })
     })
 };
 
 
-export const Deldistrict=(req,res)=>{
+export const Deluser=(req,res)=>{
     let {id}=req.params
-    db.query(`DELETE FROM district WHERE id=(?)`,[id],(error,results)=>{
+    db.query(`DELETE FROM user WHERE id=(?)`,[id],(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Error deleting district");
+            console.log("Error deleting user");
             return res.status(500).json({
-                message:"Error deleting district",
+                message:"Error deleting user",
                 error:"Internal Server Error",
             }) 
         }
         res.status(201).json({
             message:results,
             id:results.insertId,
-            message:"district is delted successfully",
+            message:"user is deleted successfully",
         })
     })
 };
+
+
+
+
+
+
+

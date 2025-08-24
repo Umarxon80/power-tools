@@ -102,7 +102,7 @@ export const Deldistrict=(req,res)=>{
         res.status(201).json({
             message:results,
             id:results.insertId,
-            message:"district is delted successfully",
+            message:"district is deleted successfully",
         })
     })
 };

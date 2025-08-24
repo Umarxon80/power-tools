@@ -103,7 +103,7 @@ export const Deladmin=(req,res)=>{
         res.status(201).json({
             message:results,
             id:results.insertId,
-            message:"admin is delted successfully",
+            message:"admin is deleted successfully",
         })
     })
 };
