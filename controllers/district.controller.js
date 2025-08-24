@@ -1,62 +1,62 @@
 import  db  from "../config/db.config.js";
 
 
-export const GetFuelType=(req,res)=>{
-    db.query(`SELECT * FROM fuel_types`,(error,results)=>{
+export const Getdistrict=(req,res)=>{
+    db.query(`SELECT * FROM district`,(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Benzin turini olishda hatolik");
+            console.log("Error getting district");
             return res.status(500).json({
-                message:"Error getting fuel type",
+                message:"Error getting district",
                 error:"Internal Server Error"
             }) 
         }
         res.status(200).json({
             statusCode:200,
             data:results,
-            message:"fuel types are recived successfully",
+            message:"districts are recived successfully",
         })
     })
 };
 
-export const GetOneFuelType=(req,res)=>{
+export const GetOnedistrict=(req,res)=>{
     let {id}=req.params
-    db.query(`SELECT * FROM fuel_types where id=(?)`,[id],(error,results)=>{
+    db.query(`SELECT * FROM district where id=(?)`,[id],(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Benzin turini olishda hatolik");
+            console.log("Error getting district");
             return res.status(500).json({
-                message:"Error getting fuel type",
+                message:"Error getting district",
                 error:"Internal Server Error"
             }) 
         }
         if (!results.length) {
-            return res.status(400).send("fuel type with such id doesn't exists")
+            return res.status(400).send("district with such id doesn't exists")
         }
         res.status(200).json({
             statusCode:200,
             data:results[0],
-            message:"fuel types are recived successfully",
+            message:"districts are recived successfully",
         })
     })
 
 
 };
 
-export const createFuelType=(req,res)=>{
+export const createdistrict=(req,res)=>{
     let {name}=req.body
-    db.query(`INSERT INTO fuel_types (name) VALUES (?)`,[name],(error,results)=>{
+    db.query(`INSERT INTO district (name) VALUES (?)`,[name],(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Yangi yoqilgi turi qo'shishda hatolik");
+            console.log("Error adding new district");
             return res.status(500).json({
-                message:"Error adding new fuel type",
+                message:"Error adding new district",
                 error:"Internal Server Error"
             }) 
         }
         console.log(results);
         res.status(201).json({
-            message:"New fuel type is added",
+            message:"New district is added",
             id:results.insertId
         })
     })
@@ -67,42 +67,42 @@ export const createFuelType=(req,res)=>{
 
 
 
-export const PatchFuelType=(req,res)=>{
+export const Patchdistrict=(req,res)=>{
     let {id}=req.params
     let {name}=req.body
-    db.query(`UPDATE fuel_types SET name=(?) where id=(?)`,[name,id],(error,results)=>{
+    db.query(`UPDATE district SET name=(?) where id=(?)`,[name,id],(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Benzin turini ozgartirishda hatolik");
+            console.log("Error updating district");
             return res.status(500).json({
-                message:"Error updating fuel type",
+                message:"Error updating district",
                 error:"Internal Server Error"
             }) 
         }
         res.status(201).json({
             message:results,
             id:id,
-            message:"fuel type is updated successfully",
+            message:"district is updated successfully",
         })
     })
 };
 
 
-export const DelFuelType=(req,res)=>{
+export const Deldistrict=(req,res)=>{
     let {id}=req.params
-    db.query(`DELETE FROM fuel_types WHERE id=(?)`,[id],(error,results)=>{
+    db.query(`DELETE FROM district WHERE id=(?)`,[id],(error,results)=>{
         if (error) {
             console.log(error);
-            console.log("Benzin turini ochirishda hatolik");
+            console.log("Error deleting district");
             return res.status(500).json({
-                message:"Error getting fuel type",
+                message:"Error deleting district",
                 error:"Internal Server Error",
             }) 
         }
         res.status(201).json({
             message:results,
             id:results.insertId,
-            message:"fuel type is delted successfully",
+            message:"district is delted successfully",
         })
     })
 };
