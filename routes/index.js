@@ -6,6 +6,8 @@ import  user_router  from "./user.routes.js";
 import  shop_router  from "./shop.routes.js";
 import  shop_tool_router  from "./shop_tool.routes.js";
 import  order_router  from "./order.routes.js";
+import  email_router  from "./email.routes.js";
+import  search_router  from "./search.routes.js";
 
 const router=Router()
 
@@ -16,5 +18,7 @@ router.use("/tool",tool_router)
 router.use("/shop",shop_router)
 router.use("/shop_tool",shop_tool_router)
 router.use("/order",order_router)
+router.use("/email",email_router)
+router.use("/search",search_router)
 
 export default router

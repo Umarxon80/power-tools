@@ -1,5 +1,7 @@
 import  db  from "../config/db.config.js";
 import bcrypt  from "bcrypt";
+
+
 export const Getuser=(req,res)=>{
     db.query(`SELECT * FROM user`,(error,results)=>{
         if (error) {
@@ -18,9 +20,11 @@ export const Getuser=(req,res)=>{
     })
 };
 
+
+
+
 export const GetOneuser=(req,res)=>{
-    let {id}=req.params
-    db.query(`SELECT * FROM user where id=(?)`,[id],(error,results)=>{
+    db.query(`SELECT * FROM user`,(error,results)=>{
         if (error) {
             console.log(error);
             console.log("Error getting user");
@@ -29,17 +33,12 @@ export const GetOneuser=(req,res)=>{
                 error:"Internal Server Error"
             }) 
         }
-        if (!results.length) {
-            return res.status(400).send("user with such id doesn't exists")
-        }
         res.status(200).json({
             statusCode:200,
-            data:results[0],
+            data:results,
             message:"users are recived successfully",
         })
     })
-
-
 };
 
 export const createuser=(req,res)=>{

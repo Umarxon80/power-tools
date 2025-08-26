@@ -86,3 +86,13 @@ ALTER TABLE
     shop ADD CONSTRAINT shop_district_id_foreign FOREIGN KEY(district_id) REFERENCES district(id);
 ALTER TABLE
     `order` ADD CONSTRAINT order_shop_tool_id_foreign FOREIGN KEY(shop_tool_id) REFERENCES shop_tool(id);
+
+SELECT shop.name,shop.location FROM tool RIGHT JOIN shop_tool on tool.id=shop_tool.tool_id
+LEFT JOIN shop on shop.id=shop_tool.shop_id
+
+SELECT *
+FROM tool RIGHT JOIN shop_tool on tool.id=shop_tool.tool_id
+LEFT JOIN `order` on `order`.shop_tool_id=shop_tool.id
+LEFT JOIN `user` on `user`.id=`order`.client_id
+LEFT JOIN shop on shop_tool.shop_id=shop.id
+LEFT JOIN district on district.id=shop.district_id

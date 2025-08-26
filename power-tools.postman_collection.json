@@ -778,6 +778,105 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Smart search",
+			"item": [
+				{
+					"name": "find_shopof_tool",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"watch\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/search/find_shop",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"search",
+								"find_shop"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "chep_tool_renters",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"watch\"}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/search/find_renter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"search",
+								"find_renter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tool_name\": \"watch\",\r\n    \"district\":\"Olmazor\",\r\n    \"start_date\":\"2000-01-01\",\r\n    \"end_date\":\"2300-02-02\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/search/find3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"search",
+								"find3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
