@@ -96,3 +96,19 @@ LEFT JOIN `order` on `order`.shop_tool_id=shop_tool.id
 LEFT JOIN `user` on `user`.id=`order`.client_id
 LEFT JOIN shop on shop_tool.shop_id=shop.id
 LEFT JOIN district on district.id=shop.district_id
+
+
+ALTER Table `order` CHANGE total_price total_price DECIMAL(8, 2)
+
+CREATE TRIGGER total_price
+BEFORE INSERT ON `order`
+FOR EACH ROW
+BEGIN
+    SET NEW.total_price = (SELECT rent_price FROM shop_tool WHERE id = NEW.shop_tool_id) * NEW.period;
+END
+
+SELECT * FROM `order`
+
+insert INTO `order` set client_id=1,shop_tool_id=3,order_date='2010-02-02',period=10
+
+drop Trigger total_price
